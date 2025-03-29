@@ -8,18 +8,34 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/Team4-Kitcha/Config.git
+          uri: https://github.com/LGCoreNova/Config.git
           search-paths:
             - article
             - auth
             - board
             - eureka
             - gateway
+    # Cloud Bus 활성화
+    bus:
+      enabled: true
+      refresh:
+        enabled: true
+  rabbitmq:
+    host: rabbitmq
+    port: 5672
+    username: guest
+    password: guest
 
 server:
   port: 8071
 
-
 encrypt:
   key: WeAreTestOurProjectSoHappyUmmReally
+
+# Actuator 엔드포인트 노출
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,busrefresh
 
