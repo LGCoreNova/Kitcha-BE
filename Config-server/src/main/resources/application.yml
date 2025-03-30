@@ -9,6 +9,7 @@ spring:
       server:
         git:
           uri: https://github.com/LGCoreNova/Config.git
+          default-label: feat-cloudbus  # 여기를 변경
           search-paths:
             - article
             - auth
