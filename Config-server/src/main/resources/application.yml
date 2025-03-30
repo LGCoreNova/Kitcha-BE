@@ -38,5 +38,5 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,busrefresh
+        include: "health,info,bus-refresh,refresh"  # 하이픈(-) 추가
 
