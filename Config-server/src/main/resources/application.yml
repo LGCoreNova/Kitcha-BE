@@ -9,14 +9,13 @@ spring:
       server:
         git:
           uri: https://github.com/LGCoreNova/Config.git
-          default-label: feat-cloudbus  # 여기를 변경
+          default-label: feat-cloudbus
           search-paths:
             - article
             - auth
             - board
             - eureka
             - gateway
-    # Cloud Bus 활성화
     bus:
       enabled: true
       refresh:
@@ -33,10 +32,16 @@ server:
 encrypt:
   key: WeAreTestOurProjectSoHappyUmmReally
 
-# Actuator 엔드포인트 노출
 management:
   endpoints:
     web:
       exposure:
-        include: "health,info,bus-refresh,refresh"  # 하이픈(-) 추가
+        include: "health,info,busrefresh"
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka:8761/eureka/
+  instance:
+    prefer-ip-address: true
 
