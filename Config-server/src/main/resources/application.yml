@@ -45,3 +45,7 @@ eureka:
   instance:
     prefer-ip-address: true
 
+app:
+  test-message: "Cloud Bus 테스트 - 업데이트됨 - 2025-03-30 21:00"
+
+
