@@ -1,0 +1,54 @@
+services:
+  config-server:
+    image: jaehongpark04/config-server:latest
+    container_name: config-server
+    networks:
+      - kitcha_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8071/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "8071:8071"
+    restart: on-failure
+
+  eureka:
+    image: jaehongpark04/eureka:latest
+    container_name: eureka
+    networks:
+      - kitcha_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "8761:8761"
+    depends_on:
+      config-server:
+        condition: service_healthy
+    restart: on-failure
+
+  gateway-server:
+    image: jaehongpark04/gateway-server:latest
+    environment:
+      TOKEN_SECRET: ${TOKEN_SECRET}
+      FRONTEND_SERVER: ${FRONTEND_SERVER}
+    container_name: gateway-server
+    networks:
+      - kitcha_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8072/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "8072:8072"
+    depends_on:
+      config-server:
+        condition: service_healthy
+    restart: on-failure
+
+networks:
+  kitcha_network:
